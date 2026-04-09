@@ -15,15 +15,15 @@
     }
 
     :root {
-      --cream: #F7F3EE;
-      --brown: #2C1810;
-      --brown-light: #4A3228;
-      --terracotta: #B8705A;
-      --terracotta-light: #D4917D;
-      --sage: #9CAF88;
-      --sage-light: #B5C4A5;
+      --cream: #F5F5F5;
+      --brown: #1A1A1A;
+      --brown-light: #555555;
+      --terracotta: #888888;
+      --terracotta-light: #AAAAAA;
+      --sage: #999999;
+      --sage-light: #BBBBBB;
       --white: #FFFFFF;
-      --cream-dark: #EDE8E0;
+      --cream-dark: #E0E0E0;
     }
 
     html {
@@ -609,51 +609,26 @@
 
     /* --- Footer --- */
     .footer {
-      padding: 60px 24px 32px;
-      border-top: 1px solid rgba(44, 24, 16, 0.06);
+      padding: 48px 24px 32px;
+      border-top: 1px solid rgba(0, 0, 0, 0.08);
     }
 
-    .footer__top {
-      display: grid;
-      grid-template-columns: 1fr 1.5fr;
-      gap: 40px;
+    .footer__container {
       max-width: 1100px;
-      margin: 0 auto 40px;
-      align-items: start;
-    }
-
-    .footer__info {
-      display: flex;
-      flex-direction: column;
-      gap: 28px;
+      margin: 0 auto;
+      text-align: center;
     }
 
     .footer__logo {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .footer__logo img {
-      height: 30px;
-      width: auto;
-      max-width: 80px;
-      object-fit: contain;
-    }
-
-    .footer__logo-text {
-      font-family: 'Nunito Sans', sans-serif;
-      font-weight: 300;
-      font-size: 12px;
-      letter-spacing: 4px;
-      text-transform: uppercase;
-      color: var(--terracotta);
+      margin-bottom: 20px;
     }
 
     .footer__contacts {
       display: flex;
-      flex-direction: column;
-      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px 28px;
+      margin-bottom: 20px;
     }
 
     .footer__link {
@@ -665,21 +640,13 @@
     }
 
     .footer__link:hover {
-      color: var(--terracotta);
-    }
-
-    .footer__map {
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow: 0 8px 40px rgba(44, 24, 16, 0.06);
-      border: 1px solid rgba(44, 24, 16, 0.04);
+      color: var(--brown);
     }
 
     .footer__copy {
       font-size: 12px;
       color: var(--brown-light);
       opacity: 0.6;
-      text-align: center;
     }
 
     /* --- Mobile --- */
@@ -733,19 +700,6 @@
       .organic-shape--1 { width: 250px; height: 250px; }
       .organic-shape--2 { width: 200px; height: 200px; }
 
-      .footer__top {
-        grid-template-columns: 1fr;
-        gap: 28px;
-      }
-
-      .footer__info {
-        text-align: center;
-        align-items: center;
-      }
-
-      .footer__contacts {
-        align-items: center;
-      }
     }
 
     @media (min-width: 769px) and (max-width: 1024px) {
@@ -778,7 +732,6 @@
     <div class="hero__left">
       <div class="hero__logo fade-up">
         <img src="sunction-logo-transparent.png" alt="sunction.store" style="height: 40px;">
-        <span class="hero__logo-text">sunction.store</span>
       </div>
 
       <h1 class="hero__title fade-up fade-up-delay-1">День стилиста</h1>
@@ -910,23 +863,17 @@
 
   <!-- ===================== FOOTER + MAP ===================== -->
   <footer class="footer">
-    <div class="footer__top">
-      <div class="footer__info fade-up">
-        <div class="footer__logo">
-          <img src="sunction-logo-transparent.png" alt="sunction.store" style="height: 30px;">
-          <span class="footer__logo-text">sunction.store</span>
-        </div>
-        <div class="footer__contacts">
-          <a href="tel:+74992881663" class="footer__link">+7 499 288 16 63</a>
-          <span class="footer__link">Москва, ул. Земляной Вал, д.&nbsp;7</span>
-          <a href="https://sunction.store" target="_blank" class="footer__link">sunction.store</a>
-        </div>
+    <div class="footer__container fade-up">
+      <div class="footer__logo">
+        <img src="sunction-logo-transparent.png" alt="sunction.store" style="height: 30px; max-width: 80px; object-fit: contain;">
       </div>
-      <div class="footer__map fade-up fade-up-delay-1">
-        <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3Aba5bbc266f6c4900c3dac0a85ca1f4c0b99aebf70c7a3b3d58a8f72a7549621e&amp;source=constructor" width="100%" height="402" frameborder="0" style="border:none; display:block;"></iframe>
+      <div class="footer__contacts">
+        <a href="tel:+74992881663" class="footer__link">+7 499 288 16 63</a>
+        <span class="footer__link">Москва, ул. Земляной Вал, д.&nbsp;7</span>
+        <a href="https://sunction.store" target="_blank" class="footer__link">sunction.store</a>
       </div>
+      <p class="footer__copy">&copy; 2026 sunction.store</p>
     </div>
-    <p class="footer__copy">&copy; 2026 sunction.store</p>
   </footer>
 
   <script>
