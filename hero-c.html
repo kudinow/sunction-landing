@@ -38,95 +38,6 @@
       overflow-x: hidden;
     }
 
-    /* --- Organic decorative shapes --- */
-    .organic-shape {
-      position: absolute;
-      border-radius: 50%;
-      opacity: 0.06;
-      pointer-events: none;
-    }
-
-    .organic-shape--1 {
-      width: 400px;
-      height: 400px;
-      background: var(--sage);
-      top: -100px;
-      right: -150px;
-      border-radius: 60% 40% 50% 50% / 50% 60% 40% 50%;
-    }
-
-    .organic-shape--2 {
-      width: 300px;
-      height: 300px;
-      background: var(--terracotta);
-      bottom: -80px;
-      left: -100px;
-      border-radius: 40% 60% 50% 50% / 50% 40% 60% 50%;
-    }
-
-    .organic-shape--3 {
-      width: 250px;
-      height: 250px;
-      background: var(--sage);
-      top: 50%;
-      left: -80px;
-      border-radius: 50% 60% 40% 50% / 60% 40% 50% 50%;
-    }
-
-    .organic-shape--4 {
-      width: 350px;
-      height: 350px;
-      background: var(--terracotta);
-      top: 20%;
-      right: -120px;
-      border-radius: 45% 55% 60% 40% / 55% 45% 55% 45%;
-    }
-
-    /* --- Botanical line art (CSS) --- */
-    .botanical {
-      position: absolute;
-      pointer-events: none;
-      opacity: 0.12;
-    }
-
-    .botanical--leaf {
-      width: 60px;
-      height: 120px;
-      border: 1.5px solid var(--sage);
-      border-radius: 0 80% 0 80%;
-      transform: rotate(-30deg);
-    }
-
-    .botanical--leaf::after {
-      content: '';
-      position: absolute;
-      width: 1px;
-      height: 80%;
-      background: var(--sage);
-      top: 10%;
-      left: 50%;
-      transform: rotate(5deg);
-    }
-
-    .botanical--circle {
-      width: 80px;
-      height: 80px;
-      border: 1.5px solid var(--terracotta);
-      border-radius: 50%;
-    }
-
-    .botanical--circle::after {
-      content: '';
-      position: absolute;
-      width: 50px;
-      height: 50px;
-      border: 1px solid var(--terracotta);
-      border-radius: 50%;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-    }
-
     /* --- Layout --- */
     .container {
       max-width: 1100px;
@@ -262,21 +173,6 @@
     .hero__right {
       position: relative;
       overflow: hidden;
-    }
-
-    /* Decorative organic shape peeking behind photo edge */
-    .hero__right::before {
-      content: '';
-      position: absolute;
-      width: 300px;
-      height: 400px;
-      background: var(--terracotta);
-      opacity: 0.08;
-      border-radius: 50% 60% 40% 50% / 60% 40% 50% 50%;
-      top: 15%;
-      left: -60px;
-      z-index: 1;
-      pointer-events: none;
     }
 
     .hero__image {
@@ -723,18 +619,12 @@
 
   <!-- ===================== HERO ===================== -->
   <section class="hero">
-    <div class="organic-shape organic-shape--1"></div>
-    <div class="organic-shape organic-shape--2"></div>
-
-    <!-- Botanical decorations -->
-    <div class="botanical botanical--leaf" style="top: 15%; left: 4%;"></div>
-
     <div class="hero__left">
       <div class="hero__logo fade-up">
         <img src="sunction-logo-transparent.png" alt="sunction.store" style="height: 40px;">
       </div>
 
-      <h1 class="hero__title fade-up fade-up-delay-1">День стилиста</h1>
+      <h1 class="hero__title fade-up fade-up-delay-1">День стилиста в&nbsp;sunction.store</h1>
 
       <p class="hero__subtitle fade-up fade-up-delay-2">
         Поможем подобрать очки с&nbsp;учётом формы лица, цветотипа и&nbsp;личного стиля
@@ -770,9 +660,6 @@
 
   <!-- ===================== BENEFITS ===================== -->
   <section class="benefits">
-    <div class="organic-shape organic-shape--3"></div>
-    <div class="organic-shape organic-shape--4"></div>
-
     <div class="benefits__grid">
       <div class="benefit-card fade-up fade-up-delay-1">
         <div class="benefit-card__icon">
@@ -905,8 +792,26 @@
 
     form.addEventListener('submit', (e) => {
       e.preventDefault();
-      form.style.display = 'none';
-      successMessage.classList.add('show');
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Отправка...';
+
+      const data = {
+        name: document.getElementById('name').value,
+        phone: "'" + document.getElementById('phone').value
+      };
+
+      fetch('https://script.google.com/macros/s/AKfycbxSnfOJMrQrJVJPmAb2WPRIRZ-_FmfWAvCcrITDOB1aoEyAFv426FI8yPvS2PtZJ7rj/exec', {
+        method: 'POST',
+        body: JSON.stringify(data)
+      })
+      .then(() => {
+        form.style.display = 'none';
+        successMessage.classList.add('show');
+      })
+      .catch(() => {
+        form.style.display = 'none';
+        successMessage.classList.add('show');
+      });
     });
 
     // --- Phone mask ---
@@ -932,15 +837,6 @@
       e.target.value = formatted;
     });
 
-    // --- Subtle parallax on hero shapes ---
-    window.addEventListener('scroll', () => {
-      const scrollY = window.scrollY;
-      const shapes = document.querySelectorAll('.organic-shape');
-      shapes.forEach((shape, i) => {
-        const speed = 0.03 + i * 0.015;
-        shape.style.transform = `translateY(${scrollY * speed}px)`;
-      });
-    });
   </script>
 
 </body>
