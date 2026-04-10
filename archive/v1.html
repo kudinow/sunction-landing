@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>День стилиста — sunction.store</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --gold: #C9A96E;
+  --gold-light: #d4ba88;
+  --black: #0a0a0a;
+  --white: #f5f5f0;
+  --grey: #888;
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body: 'Cormorant Garamond', Garamond, serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-weight: 300;
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── Noise texture overlay ─── */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+}
+
+/* ─── Reveal animations ─── */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-delay-1 { transition-delay: 0.15s; }
+.reveal-delay-2 { transition-delay: 0.3s; }
+.reveal-delay-3 { transition-delay: 0.45s; }
+.reveal-delay-4 { transition-delay: 0.6s; }
+
+/* ─── Thin editorial divider ─── */
+.divider {
+  width: 60px;
+  height: 1px;
+  background: var(--gold);
+  margin: 2rem 0;
+}
+
+.divider-center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ═══════════════════════════════
+   HERO
+   ═══════════════════════════════ */
+.hero {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  position: relative;
+}
+
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 4rem 5vw 4rem 7vw;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-logo {
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: 0.7rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 3rem;
+}
+
+.hero-logo img {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(3.5rem, 7vw, 7rem);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.5rem;
+}
+
+.hero-title em {
+  font-style: italic;
+  font-weight: 400;
+  display: block;
+  color: var(--gold);
+}
+
+.hero-subtitle {
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: clamp(1.05rem, 1.5vw, 1.3rem);
+  line-height: 1.7;
+  color: #bbb;
+  max-width: 420px;
+  margin-bottom: 2.5rem;
+}
+
+.hero-info {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  letter-spacing: 0.08em;
+  color: var(--grey);
+  margin-bottom: 3rem;
+  line-height: 1.9;
+}
+
+.hero-info strong {
+  color: var(--white);
+  font-weight: 500;
+}
+
+.btn-primary {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--black);
+  background: var(--gold);
+  border: 1px solid var(--gold);
+  padding: 1.1rem 3rem;
+  text-decoration: none;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.4s ease, color 0.4s ease, transform 0.3s ease;
+  align-self: flex-start;
+}
+
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+  transition: left 0.5s ease;
+}
+
+.btn-primary:hover {
+  background: transparent;
+  color: var(--gold);
+  transform: translateY(-2px);
+}
+
+.btn-primary:hover::after {
+  left: 100%;
+}
+
+/* Hero image side */
+.hero-image {
+  position: relative;
+  overflow: hidden;
+  background-image: url('hf_20260409_123836_35dd3346-c719-4092-abab-21650ed8c3de.png');
+  background-size: cover;
+  background-position: center;
+}
+
+.hero-image::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.hero-image::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, var(--black) 0%, transparent 30%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Decorative vertical text */
+.hero-image .vert-text {
+  position: absolute;
+  right: 2.5rem;
+  top: 50%;
+  transform: translateY(-50%) rotate(90deg);
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.2);
+  white-space: nowrap;
+  transform-origin: center center;
+}
+
+/* ═══════════════════════════════
+   BENEFITS
+   ═══════════════════════════════ */
+.benefits {
+  padding: 8rem 7vw;
+  position: relative;
+}
+
+.benefits::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 7vw;
+  right: 7vw;
+  height: 1px;
+  background: linear-gradient(to right, var(--gold), transparent);
+}
+
+.section-label {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1rem;
+}
+
+.benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4rem;
+  margin-top: 4rem;
+}
+
+.benefit-item {
+  position: relative;
+  padding-top: 2rem;
+}
+
+.benefit-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 30px;
+  height: 1px;
+  background: var(--gold);
+}
+
+.benefit-num {
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  color: var(--gold);
+  letter-spacing: 0.1em;
+  margin-bottom: 1.2rem;
+  font-style: italic;
+}
+
+.benefit-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 2vw, 1.8rem);
+  font-weight: 500;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+  letter-spacing: -0.01em;
+}
+
+.benefit-text {
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  font-weight: 300;
+  line-height: 1.7;
+  color: #999;
+}
+
+/* ═══════════════════════════════
+   FORM SECTION
+   ═══════════════════════════════ */
+.signup {
+  padding: 8rem 7vw;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6rem;
+  align-items: start;
+  position: relative;
+}
+
+.signup::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 7vw;
+  right: 7vw;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--gold), transparent);
+}
+
+.signup-left {
+  padding-top: 2rem;
+}
+
+.signup-badge {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  border: 1px solid var(--gold);
+  padding: 0.5rem 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.signup-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 4vw, 3.5rem);
+  font-weight: 400;
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.02em;
+}
+
+.signup-title em {
+  font-style: italic;
+  color: var(--gold);
+}
+
+.signup-text {
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  color: #999;
+  font-weight: 300;
+}
+
+/* Form styling */
+.signup-form {
+  padding-top: 2rem;
+}
+
+.form-group {
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.form-group label {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--grey);
+  margin-bottom: 0.6rem;
+}
+
+.form-group input[type="text"],
+.form-group input[type="tel"] {
+  width: 100%;
+  padding: 1rem 0;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #333;
+  color: var(--white);
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  font-weight: 300;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.form-group input[type="text"]:focus,
+.form-group input[type="tel"]:focus {
+  border-bottom-color: var(--gold);
+}
+
+.form-group input::placeholder {
+  color: #444;
+  font-style: italic;
+}
+
+/* Checkbox */
+.checkbox-group {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.8rem;
+  margin-bottom: 2.5rem;
+  cursor: pointer;
+}
+
+.checkbox-group input[type="checkbox"] {
+  display: none;
+}
+
+.checkbox-custom {
+  width: 18px;
+  height: 18px;
+  min-width: 18px;
+  border: 1px solid #555;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2px;
+  transition: border-color 0.3s ease, background 0.3s ease;
+}
+
+.checkbox-custom svg {
+  width: 10px;
+  height: 10px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.checkbox-group input[type="checkbox"]:checked + .checkbox-custom {
+  border-color: var(--gold);
+  background: var(--gold);
+}
+
+.checkbox-group input[type="checkbox"]:checked + .checkbox-custom svg {
+  opacity: 1;
+}
+
+.checkbox-label {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: #777;
+  line-height: 1.5;
+  user-select: none;
+}
+
+.btn-submit {
+  width: 100%;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--black);
+  background: var(--gold);
+  border: 1px solid var(--gold);
+  padding: 1.2rem 2rem;
+  cursor: pointer;
+  transition: background 0.4s ease, color 0.4s ease, opacity 0.3s ease, transform 0.3s ease;
+}
+
+.btn-submit:hover:not(:disabled) {
+  background: transparent;
+  color: var(--gold);
+  transform: translateY(-2px);
+}
+
+.btn-submit:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+/* Success message */
+.success-message {
+  display: none;
+  text-align: center;
+  padding: 3rem 0;
+}
+
+.success-message.show {
+  display: block;
+}
+
+.success-icon {
+  width: 50px;
+  height: 50px;
+  border: 1px solid var(--gold);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.5rem;
+}
+
+.success-icon svg {
+  width: 22px;
+  height: 22px;
+  stroke: var(--gold);
+}
+
+.success-message h3 {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 400;
+  margin-bottom: 0.8rem;
+}
+
+.success-message p {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: #999;
+  font-weight: 300;
+}
+
+/* ═══════════════════════════════
+   FOOTER
+   ═══════════════════════════════ */
+.footer {
+  padding: 4rem 7vw;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 7vw;
+  right: 7vw;
+  height: 1px;
+  background: #222;
+}
+
+.footer-brand {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.footer-contacts {
+  display: flex;
+  gap: 3rem;
+  flex-wrap: wrap;
+}
+
+.footer-contacts a,
+.footer-contacts span {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: #777;
+  text-decoration: none;
+  letter-spacing: 0.03em;
+  transition: color 0.3s ease;
+}
+
+.footer-contacts a:hover {
+  color: var(--gold);
+}
+
+/* ═══════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════ */
+@media (max-width: 1024px) {
+  .benefits-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+  }
+
+  .signup {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+
+  .hero-content {
+    padding: 6rem 6vw 4rem;
+    min-height: 80vh;
+    justify-content: flex-end;
+  }
+
+  .hero-image {
+    height: 50vh;
+    order: -1;
+  }
+
+  .hero-image::after {
+    background: linear-gradient(to top, var(--black) 10%, transparent 60%);
+  }
+
+  .hero-image .vert-text {
+    display: none;
+  }
+
+  /* On mobile, overlay text on image */
+  .hero {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    margin-top: -8rem;
+    min-height: auto;
+    padding-top: 0;
+  }
+
+  .hero-title {
+    font-size: clamp(2.8rem, 10vw, 4.5rem);
+  }
+
+  .benefits {
+    padding: 5rem 6vw;
+  }
+
+  .benefits-grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .signup {
+    padding: 5rem 6vw;
+  }
+
+  .footer {
+    flex-direction: column;
+    text-align: center;
+    padding: 3rem 6vw;
+  }
+
+  .footer-contacts {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-logo reveal">
+      <img src="sunction-logo-transparent.png" alt="sunction.store" style="height: 40px; filter: invert(1);">
+      <div>sunction.store</div>
+    </div>
+    <h1 class="hero-title reveal reveal-delay-1">
+      День<br><em>стилиста</em>
+    </h1>
+    <div class="divider reveal reveal-delay-2"></div>
+    <p class="hero-subtitle reveal reveal-delay-2">
+      Поможем подобрать очки с&nbsp;учётом формы лица, цветотипа и&nbsp;личного стиля
+    </p>
+    <div class="hero-info reveal reveal-delay-3">
+      <strong>19 апреля</strong>, 14:00–18:00<br>
+      Москва, ул.&nbsp;Земляной Вал, д.&nbsp;7
+    </div>
+    <a href="#signup" class="btn-primary reveal reveal-delay-4">Забронировать место</a>
+  </div>
+  <div class="hero-image">
+    <span class="vert-text">Eyewear &mdash; Style &mdash; Confidence</span>
+  </div>
+</section>
+
+<!-- ═══ BENEFITS ═══ -->
+<section class="benefits">
+  <div class="section-label reveal">Что вас ждёт</div>
+  <div class="benefits-grid">
+    <div class="benefit-item reveal reveal-delay-1">
+      <div class="benefit-num">01</div>
+      <h3 class="benefit-title">Сессия со&nbsp;стилистом</h3>
+      <p class="benefit-text">20-минутная индивидуальная консультация по&nbsp;подбору очков</p>
+    </div>
+    <div class="benefit-item reveal reveal-delay-2">
+      <div class="benefit-num">02</div>
+      <h3 class="benefit-title">Подарок при покупке</h3>
+      <p class="benefit-text">Комплиментарный набор для ухода за&nbsp;очками при любой покупке</p>
+    </div>
+    <div class="benefit-item reveal reveal-delay-3">
+      <div class="benefit-num">03</div>
+      <h3 class="benefit-title">Персональные условия</h3>
+      <p class="benefit-text">Специальные условия на&nbsp;покупки для участников события</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SIGNUP ═══ -->
+<section class="signup" id="signup">
+  <div class="signup-left">
+    <div class="signup-badge reveal">Осталось мало мест</div>
+    <h2 class="signup-title reveal reveal-delay-1">
+      Количество мест<br><em>ограничено</em>
+    </h2>
+    <div class="divider reveal reveal-delay-2"></div>
+    <p class="signup-text reveal reveal-delay-2">Только по&nbsp;предварительной записи</p>
+  </div>
+  <div class="signup-form reveal reveal-delay-3" id="formContainer">
+    <form id="signupForm" novalidate>
+      <div class="form-group">
+        <label for="name">Имя</label>
+        <input type="text" id="name" name="name" required placeholder="Ваше имя">
+      </div>
+      <div class="form-group">
+        <label for="phone">Телефон</label>
+        <input type="tel" id="phone" name="phone" required placeholder="+7 (___) ___-__-__">
+      </div>
+      <label class="checkbox-group">
+        <input type="checkbox" id="agree">
+        <span class="checkbox-custom">
+          <svg viewBox="0 0 12 12" fill="none" stroke="#0a0a0a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="2,6 5,9 10,3"></polyline>
+          </svg>
+        </span>
+        <span class="checkbox-label">Я&nbsp;соглашаюсь с&nbsp;правилами обработки персональных данных</span>
+      </label>
+      <button type="submit" class="btn-submit" disabled>Забронировать место</button>
+    </form>
+    <div class="success-message" id="successMessage">
+      <div class="success-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="4,12 10,18 20,6"></polyline>
+        </svg>
+      </div>
+      <h3>Вы записаны!</h3>
+      <p>Мы свяжемся с&nbsp;вами для подтверждения</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer class="footer">
+  <div class="footer-brand">
+    <img src="sunction-logo-transparent.png" alt="sunction.store" style="height: 30px; filter: invert(1); margin-bottom: 0.3rem;">
+    <div>sunction.store</div>
+  </div>
+  <div class="footer-contacts">
+    <a href="tel:+74992881663">+7 499 288 16 63</a>
+    <span>Москва, ул.&nbsp;Земляной Вал, д.&nbsp;7</span>
+  </div>
+</footer>
+
+<script>
+/* ─── Intersection Observer for scroll reveals ─── */
+(function() {
+  const observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.15,
+    rootMargin: '0px 0px -40px 0px'
+  });
+
+  document.querySelectorAll('.reveal').forEach(function(el) {
+    observer.observe(el);
+  });
+})();
+
+/* ─── Checkbox → submit button toggle ─── */
+var agreeCheckbox = document.getElementById('agree');
+var submitBtn = document.querySelector('.btn-submit');
+
+agreeCheckbox.addEventListener('change', function() {
+  submitBtn.disabled = !this.checked;
+});
+
+/* ─── Form submission ─── */
+document.getElementById('signupForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+
+  var name = document.getElementById('name');
+  var phone = document.getElementById('phone');
+
+  if (!name.value.trim() || !phone.value.trim()) return;
+
+  this.style.display = 'none';
+  document.getElementById('successMessage').classList.add('show');
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>День стилиста — sunction.store</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,800;0,9..144,900;1,9..144,400&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+        :root{
+            --cream:#F2E8E0;
+            --chocolate:#1E1008;
+            --coral:#E05A3A;
+            --sage:#7A9E7E;
+            --coral-light:#f0886e;
+            --cream-dark:#e6d9cf;
+        }
+        html{scroll-behavior:smooth;font-size:16px}
+        body{
+            font-family:'Manrope',sans-serif;
+            background:var(--cream);
+            color:var(--chocolate);
+            overflow-x:hidden;
+            line-height:1.6;
+        }
+
+        /* ---- BLOB DECORATIONS ---- */
+        .blob{
+            position:absolute;
+            border-radius:62% 38% 46% 54% / 60% 44% 56% 40%;
+            pointer-events:none;
+            z-index:0;
+        }
+        .blob--coral{background:var(--coral);opacity:.08}
+        .blob--sage{background:var(--sage);opacity:.10}
+        .blob--cream{background:var(--cream);opacity:.12}
+
+        /* ---- HEADER ---- */
+        .header{
+            position:fixed;top:0;left:0;right:0;z-index:100;
+            padding:1rem 2rem;
+            display:flex;align-items:center;justify-content:space-between;
+            background:rgba(242,232,224,.85);
+            backdrop-filter:blur(16px);
+            -webkit-backdrop-filter:blur(16px);
+            transition:box-shadow .3s;
+        }
+        .header.scrolled{box-shadow:0 2px 24px rgba(30,16,8,.08)}
+        .header__logo img{height:44px;display:block}
+        .header__cta{
+            font-family:'Manrope',sans-serif;
+            font-weight:600;font-size:.875rem;
+            color:var(--cream);background:var(--coral);
+            border:none;border-radius:100px;
+            padding:.65rem 1.6rem;cursor:pointer;
+            text-decoration:none;
+            transition:background .25s,transform .2s;
+        }
+        .header__cta:hover{background:var(--coral-light);transform:scale(1.04)}
+
+        /* ---- HERO ---- */
+        .hero{
+            min-height:100vh;min-height:100dvh;
+            display:grid;
+            grid-template-columns:1fr 1fr;
+            align-items:center;
+            gap:2rem;
+            padding:7rem 4rem 4rem;
+            position:relative;
+        }
+        .hero__text{position:relative;z-index:2}
+        .hero__badge{
+            display:inline-block;
+            font-family:'Manrope',sans-serif;
+            font-weight:600;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;
+            color:var(--coral);
+            background:rgba(224,90,58,.10);
+            border-radius:100px;
+            padding:.45rem 1.1rem;
+            margin-bottom:1.5rem;
+        }
+        .hero__title{
+            font-family:'Fraunces',serif;
+            font-weight:800;
+            font-size:clamp(3rem,6vw,5.5rem);
+            line-height:1.05;
+            letter-spacing:-.02em;
+            font-variation-settings:'opsz' 144;
+            margin-bottom:1.2rem;
+        }
+        .hero__title span{color:var(--coral)}
+        .hero__subtitle{
+            font-size:clamp(1rem,1.4vw,1.25rem);
+            max-width:480px;
+            color:rgba(30,16,8,.7);
+            margin-bottom:1rem;
+            line-height:1.7;
+        }
+        .hero__info{
+            font-size:.95rem;
+            font-weight:500;
+            color:var(--chocolate);
+            margin-bottom:2.2rem;
+            display:flex;flex-wrap:wrap;gap:.4rem .6rem;align-items:center;
+        }
+        .hero__info svg{width:18px;height:18px;flex-shrink:0;color:var(--coral)}
+        .hero__cta{
+            display:inline-flex;align-items:center;gap:.6rem;
+            font-family:'Manrope',sans-serif;
+            font-weight:700;font-size:1.1rem;
+            color:#fff;background:var(--coral);
+            border:none;border-radius:100px;
+            padding:1.1rem 2.6rem;
+            cursor:pointer;text-decoration:none;
+            transition:background .25s,transform .2s,box-shadow .3s;
+            box-shadow:0 8px 30px rgba(224,90,58,.25);
+        }
+        .hero__cta:hover{background:var(--coral-light);transform:translateY(-2px);box-shadow:0 12px 36px rgba(224,90,58,.35)}
+        .hero__cta svg{width:20px;height:20px;transition:transform .25s}
+        .hero__cta:hover svg{transform:translateX(4px)}
+
+        .hero__image{
+            position:relative;z-index:1;
+            display:flex;justify-content:center;align-items:center;
+        }
+        .hero__image img{
+            width:100%;max-width:540px;
+            aspect-ratio:3/4;
+            object-fit:cover;
+            border-radius:62% 38% 70% 30% / 46% 62% 38% 54%;
+            box-shadow:0 20px 60px rgba(30,16,8,.12);
+        }
+        .hero .blob--1{
+            width:320px;height:320px;
+            top:10%;right:5%;
+            border-radius:62% 38% 46% 54% / 60% 44% 56% 40%;
+            background:var(--sage);opacity:.09;
+        }
+        .hero .blob--2{
+            width:200px;height:200px;
+            bottom:8%;left:45%;
+            border-radius:46% 54% 62% 38% / 44% 60% 40% 56%;
+            background:var(--coral);opacity:.07;
+        }
+
+        /* ---- BENEFITS ---- */
+        .benefits{
+            padding:6rem 4rem;
+            position:relative;
+        }
+        .benefits__heading{
+            text-align:center;
+            font-family:'Fraunces',serif;
+            font-weight:700;
+            font-size:clamp(2rem,4vw,3.2rem);
+            font-variation-settings:'opsz' 72;
+            margin-bottom:4rem;
+        }
+        .benefits__grid{
+            display:grid;
+            grid-template-columns:repeat(3,1fr);
+            gap:2.5rem;
+            max-width:1100px;
+            margin:0 auto;
+        }
+        .benefit{
+            text-align:center;
+            padding:2.5rem 1.5rem;
+            border-radius:28px;
+            background:rgba(255,255,255,.45);
+            backdrop-filter:blur(8px);
+            transition:transform .3s,box-shadow .3s;
+        }
+        .benefit:hover{transform:translateY(-6px);box-shadow:0 16px 48px rgba(30,16,8,.08)}
+        .benefit__icon{
+            width:88px;height:88px;
+            border-radius:50%;
+            display:flex;align-items:center;justify-content:center;
+            margin:0 auto 1.6rem;
+            font-size:2rem;
+        }
+        .benefit:nth-child(1) .benefit__icon{background:rgba(224,90,58,.12)}
+        .benefit:nth-child(2) .benefit__icon{background:rgba(122,158,126,.15)}
+        .benefit:nth-child(3) .benefit__icon{background:rgba(224,90,58,.08)}
+        .benefit__title{
+            font-family:'Fraunces',serif;
+            font-weight:700;
+            font-size:1.35rem;
+            font-variation-settings:'opsz' 48;
+            margin-bottom:.7rem;
+        }
+        .benefit__desc{
+            color:rgba(30,16,8,.6);
+            font-size:.95rem;
+            line-height:1.6;
+        }
+        .benefits .blob--3{
+            width:280px;height:280px;
+            top:-60px;left:-80px;
+            background:var(--coral);opacity:.05;
+            border-radius:54% 46% 62% 38% / 38% 60% 40% 62%;
+        }
+
+        /* ---- SIGNUP (FOMO + FORM) ---- */
+        .signup{
+            position:relative;
+            background:var(--chocolate);
+            color:var(--cream);
+            padding:6rem 4rem;
+            overflow:hidden;
+        }
+        .signup .blob--4{
+            width:400px;height:400px;
+            top:-100px;right:-100px;
+            background:var(--coral);opacity:.10;
+            border-radius:62% 38% 50% 50% / 48% 62% 38% 52%;
+        }
+        .signup .blob--5{
+            width:260px;height:260px;
+            bottom:-80px;left:-60px;
+            background:var(--sage);opacity:.08;
+            border-radius:50% 50% 62% 38% / 38% 50% 50% 62%;
+        }
+        .signup__inner{
+            max-width:900px;
+            margin:0 auto;
+            display:grid;
+            grid-template-columns:1fr 1fr;
+            gap:4rem;
+            align-items:center;
+            position:relative;z-index:2;
+        }
+        .signup__text-side{}
+        .signup__title{
+            font-family:'Fraunces',serif;
+            font-weight:800;
+            font-size:clamp(2rem,4vw,3rem);
+            font-variation-settings:'opsz' 96;
+            line-height:1.15;
+            margin-bottom:1.2rem;
+        }
+        .signup__title span{color:var(--coral)}
+        .signup__subtitle{
+            font-size:1.05rem;
+            color:rgba(242,232,224,.6);
+            margin-bottom:1rem;
+        }
+        .signup__date{
+            display:inline-flex;align-items:center;gap:.5rem;
+            font-weight:600;font-size:.95rem;
+            color:var(--coral);
+        }
+        .signup__date svg{width:18px;height:18px}
+
+        .signup__form{
+            display:flex;flex-direction:column;gap:1rem;
+        }
+        .signup__form input[type="text"],
+        .signup__form input[type="tel"]{
+            font-family:'Manrope',sans-serif;
+            font-size:1rem;
+            padding:1rem 1.4rem;
+            border:none;
+            border-radius:100px;
+            background:var(--cream);
+            color:var(--chocolate);
+            outline:none;
+            transition:box-shadow .25s;
+        }
+        .signup__form input:focus{box-shadow:0 0 0 3px rgba(224,90,58,.35)}
+        .signup__form input::placeholder{color:rgba(30,16,8,.4)}
+        .signup__checkbox{
+            display:flex;align-items:flex-start;gap:.6rem;
+            font-size:.82rem;
+            color:rgba(242,232,224,.55);
+            line-height:1.5;
+            cursor:pointer;
+        }
+        .signup__checkbox input{
+            accent-color:var(--coral);
+            width:18px;height:18px;
+            margin-top:2px;
+            flex-shrink:0;
+            cursor:pointer;
+        }
+        .signup__checkbox a{color:var(--coral);text-decoration:underline}
+        .signup__submit{
+            font-family:'Manrope',sans-serif;
+            font-weight:700;font-size:1.05rem;
+            color:#fff;background:var(--coral);
+            border:none;border-radius:100px;
+            padding:1.1rem 2rem;
+            cursor:pointer;
+            transition:background .25s,transform .2s,box-shadow .3s;
+            box-shadow:0 6px 24px rgba(224,90,58,.3);
+        }
+        .signup__submit:hover{background:var(--coral-light);transform:translateY(-2px)}
+        .signup__submit:disabled{opacity:.5;cursor:not-allowed;transform:none}
+
+        .signup__success{
+            display:none;
+            text-align:center;
+            padding:2rem;
+        }
+        .signup__success.show{display:block}
+        .signup__success h3{
+            font-family:'Fraunces',serif;
+            font-size:1.8rem;font-weight:700;
+            font-variation-settings:'opsz' 72;
+            margin-bottom:.6rem;
+        }
+        .signup__success p{color:rgba(242,232,224,.6);font-size:1rem}
+
+        /* ---- FOOTER ---- */
+        .footer{
+            background:var(--chocolate);
+            color:rgba(242,232,224,.5);
+            border-top:1px solid rgba(242,232,224,.08);
+            padding:2.5rem 4rem;
+            display:flex;
+            flex-wrap:wrap;
+            justify-content:center;
+            gap:1.5rem 3rem;
+            font-size:.85rem;
+        }
+        .footer a{color:rgba(242,232,224,.5);text-decoration:none;transition:color .25s}
+        .footer a:hover{color:var(--coral)}
+        .footer span{display:flex;align-items:center;gap:.4rem}
+        .footer svg{width:16px;height:16px;flex-shrink:0}
+
+        /* ---- ANIMATIONS ---- */
+        .reveal{
+            opacity:0;
+            transform:translateY(40px);
+            transition:opacity .7s ease,transform .7s ease;
+        }
+        .reveal.visible{
+            opacity:1;
+            transform:translateY(0);
+        }
+
+        /* ---- RESPONSIVE ---- */
+        @media(max-width:900px){
+            .hero{
+                grid-template-columns:1fr;
+                padding:6rem 2rem 3rem;
+                min-height:auto;
+                text-align:center;
+            }
+            .hero__subtitle{margin-left:auto;margin-right:auto}
+            .hero__info{justify-content:center}
+            .hero__image{order:-1;margin-bottom:1rem}
+            .hero__image img{max-width:340px}
+            .benefits{padding:4rem 2rem}
+            .benefits__grid{grid-template-columns:1fr;max-width:420px}
+            .signup{padding:4rem 1.5rem}
+            .signup__inner{grid-template-columns:1fr;gap:2.5rem;text-align:center}
+            .footer{padding:2rem 1.5rem;flex-direction:column;align-items:center;gap:1rem}
+        }
+        @media(max-width:480px){
+            .header{padding:.8rem 1rem}
+            .header__logo img{height:34px}
+            .header__cta{font-size:.78rem;padding:.55rem 1.2rem}
+            .hero{padding:5.5rem 1.2rem 2.5rem}
+            .hero__image img{max-width:280px}
+            .hero__cta{font-size:1rem;padding:1rem 2rem}
+            .benefits{padding:3rem 1.2rem}
+            .benefit{padding:2rem 1.2rem}
+            .signup{padding:3rem 1.2rem}
+        }
+    </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header" id="header">
+    <div class="header__logo">
+        <img src="sunction-logo-transparent.png" alt="sunction.store">
+    </div>
+    <a href="#signup" class="header__cta">Забронировать</a>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="blob blob--sage blob--1"></div>
+    <div class="blob blob--coral blob--2"></div>
+
+    <div class="hero__text reveal">
+        <div class="hero__badge">sunction.store</div>
+        <h1 class="hero__title">День<br><span>стилиста</span></h1>
+        <p class="hero__subtitle">Поможем подобрать очки с учётом формы лица, цветотипа и личного стиля</p>
+        <div class="hero__info">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            19 апреля, 14:00–18:00
+            <span style="opacity:.3;margin:0 .2rem">|</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            Москва, ул. Земляной Вал, д.&nbsp;7
+        </div>
+        <a href="#signup" class="hero__cta">
+            Забронировать место
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+    </div>
+
+    <div class="hero__image reveal">
+        <img src="hf_20260409_123836_35dd3346-c719-4092-abab-21650ed8c3de.png" alt="День стилиста в sunction.store">
+    </div>
+</section>
+
+<!-- BENEFITS -->
+<section class="benefits">
+    <div class="blob blob--coral blob--3"></div>
+    <h2 class="benefits__heading reveal">Что вас ждёт</h2>
+    <div class="benefits__grid">
+        <div class="benefit reveal">
+            <div class="benefit__icon">
+                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#E05A3A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <h3 class="benefit__title">Сессия со стилистом</h3>
+            <p class="benefit__desc">20-минутная индивидуальная консультация по подбору оправ</p>
+        </div>
+        <div class="benefit reveal">
+            <div class="benefit__icon">
+                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#7A9E7E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12v10H4V12"/><path d="M2 7h20v5H2z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
+            </div>
+            <h3 class="benefit__title">Подарок при покупке</h3>
+            <p class="benefit__desc">Комплиментарный набор для ухода за очками</p>
+        </div>
+        <div class="benefit reveal">
+            <div class="benefit__icon">
+                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#E05A3A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            </div>
+            <h3 class="benefit__title">Персональные условия</h3>
+            <p class="benefit__desc">Специальные условия для участников мероприятия</p>
+        </div>
+    </div>
+</section>
+
+<!-- SIGNUP -->
+<section class="signup" id="signup">
+    <div class="blob blob--coral blob--4"></div>
+    <div class="blob blob--sage blob--5"></div>
+    <div class="signup__inner">
+        <div class="signup__text-side reveal">
+            <h2 class="signup__title">Количество мест<br><span>ограничено</span></h2>
+            <p class="signup__subtitle">Только по предварительной записи. Забронируйте место, чтобы гарантировать персональную сессию со стилистом.</p>
+            <div class="signup__date">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                19 апреля, 14:00–18:00
+            </div>
+        </div>
+
+        <div class="signup__form-wrap reveal">
+            <form class="signup__form" id="signupForm" novalidate>
+                <input type="text" name="name" placeholder="Имя" required>
+                <input type="tel" name="phone" placeholder="Телефон" required>
+                <label class="signup__checkbox">
+                    <input type="checkbox" name="consent" required>
+                    <span>Я согласен(-на) на обработку персональных данных</span>
+                </label>
+                <button type="submit" class="signup__submit">Забронировать место</button>
+            </form>
+            <div class="signup__success" id="signupSuccess">
+                <h3>Готово!</h3>
+                <p>Мы свяжемся с вами для подтверждения записи</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        <a href="tel:+74992881663">+7 499 288 16 63</a>
+    </span>
+    <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        Москва, ул. Земляной Вал, д.&nbsp;7
+    </span>
+    <span>
+        <a href="https://sunction.store" target="_blank">sunction.store</a>
+    </span>
+</footer>
+
+<script>
+// Header scroll shadow
+const header = document.getElementById('header');
+window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 40);
+}, {passive: true});
+
+// Reveal on scroll
+const reveals = document.querySelectorAll('.reveal');
+const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+            setTimeout(() => entry.target.classList.add('visible'), i * 80);
+            revealObserver.unobserve(entry.target);
+        }
+    });
+}, {threshold: 0.15, rootMargin: '0px 0px -40px 0px'});
+reveals.forEach(el => revealObserver.observe(el));
+
+// Form
+const form = document.getElementById('signupForm');
+const success = document.getElementById('signupSuccess');
+form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = form.name.value.trim();
+    const phone = form.phone.value.trim();
+    const consent = form.consent.checked;
+    if (!name || !phone || !consent) {
+        if (!consent) alert('Пожалуйста, дайте согласие на обработку персональных данных');
+        return;
+    }
+    form.style.display = 'none';
+    success.classList.add('show');
+});
+</script>
+</body>
+</html>

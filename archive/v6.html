@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>День стилиста — sunction.store</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=DM+Serif+Display&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --cream: #F5F0E8;
+            --cream-light: #FAF7F2;
+            --espresso: #2C1810;
+            --espresso-light: #3D2A1E;
+            --terracotta: #C4785C;
+            --terracotta-dark: #A8624A;
+            --gold: #C9A96E;
+            --gold-light: #D4BA85;
+            --text-dark: #2C1810;
+            --text-light: #F5F0E8;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            color: var(--text-dark);
+            background: var(--cream);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'DM Serif Display', serif;
+            font-weight: 400;
+        }
+
+        /* ── Reveal animations ── */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .reveal-delay-1 { transition-delay: 0.12s; }
+        .reveal-delay-2 { transition-delay: 0.24s; }
+        .reveal-delay-3 { transition-delay: 0.36s; }
+
+        /* ── Hero ── */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+        }
+
+        .hero-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            will-change: transform;
+            transition: transform 0.1s linear;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            background: linear-gradient(
+                180deg,
+                rgba(44, 24, 16, 0.45) 0%,
+                rgba(44, 24, 16, 0.55) 40%,
+                rgba(44, 24, 16, 0.7) 100%
+            );
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            padding: 2rem;
+            max-width: 800px;
+        }
+
+        .hero-logo {
+            height: 40px;
+            margin-bottom: 0.5rem;
+            filter: invert(1);
+            opacity: 0;
+            animation: heroFadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
+        }
+
+        .hero-brand {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.9rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--gold-light);
+            margin-bottom: 2.5rem;
+            opacity: 0;
+            animation: heroFadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.35s forwards;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            color: var(--cream);
+            line-height: 1.05;
+            margin-bottom: 1.25rem;
+            opacity: 0;
+            animation: heroFadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1rem, 2.2vw, 1.25rem);
+            color: rgba(245, 240, 232, 0.85);
+            max-width: 520px;
+            margin: 0 auto 1.75rem;
+            line-height: 1.6;
+            opacity: 0;
+            animation: heroFadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.65s forwards;
+        }
+
+        .hero-info {
+            font-size: 0.9rem;
+            color: var(--gold-light);
+            letter-spacing: 0.04em;
+            margin-bottom: 2.5rem;
+            opacity: 0;
+            animation: heroFadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.8s forwards;
+        }
+
+        .hero-cta {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: var(--terracotta);
+            color: var(--cream);
+            text-decoration: none;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 1rem;
+            font-weight: 500;
+            letter-spacing: 0.06em;
+            border-radius: 4px;
+            transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+            opacity: 0;
+            animation: heroFadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.95s forwards;
+        }
+
+        .hero-cta:hover {
+            background: var(--terracotta-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(196, 120, 92, 0.35);
+        }
+
+        @keyframes heroFadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ── Scroll indicator ── */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            opacity: 0;
+            animation: heroFadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) 1.3s forwards;
+        }
+
+        .scroll-indicator span {
+            display: block;
+            width: 2px;
+            height: 40px;
+            background: var(--gold-light);
+            margin: 0 auto;
+            opacity: 0.5;
+            animation: scrollPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes scrollPulse {
+            0%, 100% { transform: scaleY(1); opacity: 0.5; }
+            50% { transform: scaleY(0.5); opacity: 0.2; }
+        }
+
+        /* ── Marquee Ticker ── */
+        .ticker {
+            background: var(--espresso);
+            padding: 1rem 0;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .ticker-track {
+            display: inline-flex;
+            animation: ticker 20s linear infinite;
+        }
+
+        .ticker-text {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--gold);
+            padding-right: 0;
+        }
+
+        @keyframes ticker {
+            0%   { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* ── Benefits ── */
+        .benefits {
+            padding: 6rem 2rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .benefits-heading {
+            text-align: center;
+            font-size: clamp(2rem, 4vw, 2.75rem);
+            color: var(--espresso);
+            margin-bottom: 3.5rem;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.75rem;
+        }
+
+        .benefit-card {
+            background: var(--cream-light);
+            border-radius: 6px;
+            padding: 2.5rem 2rem 2rem;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                        box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .benefit-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--terracotta);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 16px 48px rgba(44, 24, 16, 0.1);
+        }
+
+        .benefit-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .benefit-number {
+            font-family: 'DM Serif Display', serif;
+            font-size: 3rem;
+            color: var(--gold);
+            opacity: 0.3;
+            line-height: 1;
+            margin-bottom: 1rem;
+        }
+
+        .benefit-card h3 {
+            font-size: 1.3rem;
+            color: var(--espresso);
+            margin-bottom: 0.75rem;
+        }
+
+        .benefit-card p {
+            font-size: 0.95rem;
+            color: #6B5548;
+            line-height: 1.65;
+        }
+
+        /* ── Signup / FOMO ── */
+        .signup {
+            background: var(--espresso);
+            padding: 6rem 2rem;
+        }
+
+        .signup-inner {
+            max-width: 560px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .signup-badge {
+            display: inline-block;
+            padding: 0.45rem 1.25rem;
+            background: var(--terracotta);
+            color: var(--cream);
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            border-radius: 3px;
+            margin-bottom: 1.75rem;
+            animation: badgePulse 2.5s ease-in-out infinite;
+        }
+
+        @keyframes badgePulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(196, 120, 92, 0.4); }
+            50% { box-shadow: 0 0 0 10px rgba(196, 120, 92, 0); }
+        }
+
+        .signup h2 {
+            font-size: clamp(1.75rem, 4vw, 2.5rem);
+            color: var(--cream);
+            margin-bottom: 0.75rem;
+        }
+
+        .signup-text {
+            color: rgba(245, 240, 232, 0.65);
+            margin-bottom: 2.5rem;
+            font-size: 1rem;
+        }
+
+        .signup-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .signup-form input[type="text"],
+        .signup-form input[type="tel"] {
+            width: 100%;
+            padding: 1rem 1.25rem;
+            background: rgba(245, 240, 232, 0.08);
+            border: 1px solid rgba(245, 240, 232, 0.15);
+            border-radius: 4px;
+            color: var(--cream);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s, background 0.3s;
+        }
+
+        .signup-form input[type="text"]::placeholder,
+        .signup-form input[type="tel"]::placeholder {
+            color: rgba(245, 240, 232, 0.4);
+        }
+
+        .signup-form input[type="text"]:focus,
+        .signup-form input[type="tel"]:focus {
+            border-color: var(--gold);
+            background: rgba(245, 240, 232, 0.12);
+        }
+
+        .consent-label {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.65rem;
+            text-align: left;
+            cursor: pointer;
+            font-size: 0.82rem;
+            color: rgba(245, 240, 232, 0.5);
+            line-height: 1.5;
+        }
+
+        .consent-label input[type="checkbox"] {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            min-width: 18px;
+            border: 1px solid rgba(245, 240, 232, 0.3);
+            border-radius: 3px;
+            background: transparent;
+            cursor: pointer;
+            position: relative;
+            top: 1px;
+            transition: background 0.2s, border-color 0.2s;
+        }
+
+        .consent-label input[type="checkbox"]:checked {
+            background: var(--terracotta);
+            border-color: var(--terracotta);
+        }
+
+        .consent-label input[type="checkbox"]:checked::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 5px;
+            width: 5px;
+            height: 9px;
+            border: 2px solid var(--cream);
+            border-top: none;
+            border-left: none;
+            transform: rotate(45deg);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1.1rem;
+            background: var(--terracotta);
+            color: var(--cream);
+            border: none;
+            border-radius: 4px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.3s, box-shadow 0.3s, opacity 0.3s;
+        }
+
+        .submit-btn:hover:not(:disabled) {
+            background: var(--terracotta-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(196, 120, 92, 0.3);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.35;
+            cursor: not-allowed;
+        }
+
+        .success-message {
+            display: none;
+            padding: 1.5rem;
+            background: rgba(201, 169, 110, 0.15);
+            border: 1px solid rgba(201, 169, 110, 0.3);
+            border-radius: 4px;
+            color: var(--gold-light);
+            font-size: 1rem;
+            line-height: 1.5;
+            margin-top: 0.5rem;
+        }
+
+        .success-message.show {
+            display: block;
+            animation: heroFadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        /* ── Footer ── */
+        .footer {
+            background: var(--espresso);
+            border-top: 1px solid rgba(245, 240, 232, 0.08);
+            padding: 3rem 2rem;
+        }
+
+        .footer-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        .footer-logo {
+            height: 28px;
+            filter: invert(1);
+            opacity: 0.7;
+        }
+
+        .footer-info {
+            display: flex;
+            gap: 2.5rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-info a,
+        .footer-info span {
+            color: rgba(245, 240, 232, 0.5);
+            text-decoration: none;
+            font-size: 0.88rem;
+            transition: color 0.3s;
+        }
+
+        .footer-info a:hover {
+            color: var(--gold-light);
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 768px) {
+            .benefits-grid {
+                grid-template-columns: 1fr;
+                gap: 1.25rem;
+            }
+
+            .benefits { padding: 4rem 1.5rem; }
+            .signup { padding: 4rem 1.5rem; }
+
+            .footer-inner {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer-info {
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+
+            .hero-info {
+                font-size: 0.82rem;
+                padding: 0 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ═══════════ HERO ═══════════ -->
+<section class="hero">
+    <div class="hero-bg">
+        <img src="hf_20260409_123836_35dd3346-c719-4092-abab-21650ed8c3de.png" alt="Stylist day at sunction.store" id="heroBg">
+    </div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <img src="sunction-logo-transparent.png" alt="sunction.store" class="hero-logo">
+        <div class="hero-brand">sunction.store</div>
+        <h1>День стилиста</h1>
+        <p class="hero-subtitle">Поможем подобрать очки с учётом формы лица, цветотипа и личного стиля</p>
+        <p class="hero-info">19 апреля, 14:00–18:00 / Москва, ул. Земляной Вал, д.&nbsp;7</p>
+        <a href="#signup" class="hero-cta">Забронировать место</a>
+    </div>
+    <div class="scroll-indicator"><span></span></div>
+</section>
+
+<!-- ═══════════ TICKER ═══════════ -->
+<div class="ticker" aria-hidden="true">
+    <div class="ticker-track">
+        <span class="ticker-text">ДЕНЬ СТИЛИСТА &nbsp;&bull;&nbsp; 19 АПРЕЛЯ &nbsp;&bull;&nbsp; SUNCTION.STORE &nbsp;&bull;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span class="ticker-text">ДЕНЬ СТИЛИСТА &nbsp;&bull;&nbsp; 19 АПРЕЛЯ &nbsp;&bull;&nbsp; SUNCTION.STORE &nbsp;&bull;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span class="ticker-text">ДЕНЬ СТИЛИСТА &nbsp;&bull;&nbsp; 19 АПРЕЛЯ &nbsp;&bull;&nbsp; SUNCTION.STORE &nbsp;&bull;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span class="ticker-text">ДЕНЬ СТИЛИСТА &nbsp;&bull;&nbsp; 19 АПРЕЛЯ &nbsp;&bull;&nbsp; SUNCTION.STORE &nbsp;&bull;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span class="ticker-text">ДЕНЬ СТИЛИСТА &nbsp;&bull;&nbsp; 19 АПРЕЛЯ &nbsp;&bull;&nbsp; SUNCTION.STORE &nbsp;&bull;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span class="ticker-text">ДЕНЬ СТИЛИСТА &nbsp;&bull;&nbsp; 19 АПРЕЛЯ &nbsp;&bull;&nbsp; SUNCTION.STORE &nbsp;&bull;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span class="ticker-text">ДЕНЬ СТИЛИСТА &nbsp;&bull;&nbsp; 19 АПРЕЛЯ &nbsp;&bull;&nbsp; SUNCTION.STORE &nbsp;&bull;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span class="ticker-text">ДЕНЬ СТИЛИСТА &nbsp;&bull;&nbsp; 19 АПРЕЛЯ &nbsp;&bull;&nbsp; SUNCTION.STORE &nbsp;&bull;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+    </div>
+</div>
+
+<!-- ═══════════ BENEFITS ═══════════ -->
+<section class="benefits">
+    <h2 class="benefits-heading reveal">Что вас ждёт</h2>
+    <div class="benefits-grid">
+        <div class="benefit-card reveal reveal-delay-1">
+            <div class="benefit-number">01</div>
+            <h3>Сессия со стилистом</h3>
+            <p>20-минутная индивидуальная консультация по подбору очков</p>
+        </div>
+        <div class="benefit-card reveal reveal-delay-2">
+            <div class="benefit-number">02</div>
+            <h3>Подарок при покупке</h3>
+            <p>Комплиментарный набор для ухода за очками при любой покупке</p>
+        </div>
+        <div class="benefit-card reveal reveal-delay-3">
+            <div class="benefit-number">03</div>
+            <h3>Персональные условия</h3>
+            <p>Специальные условия на покупки для участников события</p>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════ SIGNUP ═══════════ -->
+<section class="signup" id="signup">
+    <div class="signup-inner">
+        <div class="signup-badge reveal">Осталось мало мест</div>
+        <h2 class="reveal reveal-delay-1">Количество мест ограничено</h2>
+        <p class="signup-text reveal reveal-delay-2">Только по предварительной записи</p>
+        <form class="signup-form reveal reveal-delay-3" id="signupForm" onsubmit="return handleSubmit(event)">
+            <input type="text" name="name" placeholder="Имя" required>
+            <input type="tel" name="phone" placeholder="Телефон" required>
+            <label class="consent-label">
+                <input type="checkbox" id="consent" onchange="toggleSubmit()">
+                <span>Я&nbsp;соглашаюсь на&nbsp;обработку персональных данных</span>
+            </label>
+            <button type="submit" class="submit-btn" id="submitBtn" disabled>Забронировать место</button>
+        </form>
+        <div class="success-message" id="successMsg">Спасибо! Мы свяжемся с вами для подтверждения записи.</div>
+    </div>
+</section>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer class="footer">
+    <div class="footer-inner">
+        <img src="sunction-logo-transparent.png" alt="sunction.store" class="footer-logo">
+        <div class="footer-info">
+            <a href="tel:+74992881663">+7 499 288 16 63</a>
+            <span>Москва, ул. Земляной Вал, д. 7</span>
+            <a href="https://sunction.store" target="_blank" rel="noopener">sunction.store</a>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // ── Scroll-triggered reveals ──
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // ── Subtle parallax on hero image ──
+    const heroBg = document.getElementById('heroBg');
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            requestAnimationFrame(() => {
+                const scrollY = window.scrollY;
+                if (scrollY < window.innerHeight) {
+                    heroBg.style.transform = `translateY(${scrollY * 0.25}px) scale(1.05)`;
+                }
+                ticking = false;
+            });
+            ticking = true;
+        }
+    });
+
+    // ── Form logic ──
+    function toggleSubmit() {
+        document.getElementById('submitBtn').disabled = !document.getElementById('consent').checked;
+    }
+
+    function handleSubmit(e) {
+        e.preventDefault();
+        const form = document.getElementById('signupForm');
+        const msg = document.getElementById('successMsg');
+        form.style.display = 'none';
+        msg.classList.add('show');
+        return false;
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>День стилиста — sunction.store</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Unbounded:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --black: #000;
+  --white: #fff;
+  --red: #FF2D2D;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: 'IBM Plex Mono', monospace;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ── MARQUEE ── */
+.marquee-wrap {
+  border-bottom: 3px solid var(--white);
+  overflow: hidden;
+  white-space: nowrap;
+  padding: 10px 0;
+}
+
+.marquee-track {
+  display: inline-block;
+  animation: marquee 12s linear infinite;
+  font-family: 'Unbounded', sans-serif;
+  font-weight: 900;
+  font-size: clamp(14px, 2vw, 20px);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--red);
+}
+
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ── HEADER / LOGO ── */
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 3px solid var(--white);
+}
+
+.logo {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: lowercase;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo img {
+  display: block;
+}
+
+.top-nav {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  border: 2px solid var(--white);
+  padding: 8px 16px;
+  transition: background 0.2s, color 0.2s;
+}
+
+.top-nav:hover {
+  background: var(--white);
+  color: var(--black);
+}
+
+/* ── HERO ── */
+.hero {
+  padding: 60px 24px 80px;
+  border-bottom: 3px solid var(--white);
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto auto auto;
+  gap: 0;
+}
+
+.hero-image {
+  grid-column: 2;
+  grid-row: 1 / -1;
+  align-self: stretch;
+  margin: -60px -24px -80px 0;
+  border-left: 3px solid var(--white);
+  overflow: hidden;
+}
+
+.hero-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  filter: grayscale(0.3) contrast(1.1);
+}
+
+.hero-title {
+  font-family: 'Unbounded', sans-serif;
+  font-weight: 900;
+  font-size: clamp(48px, 10vw, 100px);
+  line-height: 0.9;
+  text-transform: uppercase;
+  letter-spacing: -0.03em;
+  margin-left: -4px;
+}
+
+.hero-title span {
+  color: var(--red);
+}
+
+.hero-sub {
+  margin-top: 32px;
+  font-size: clamp(16px, 2.2vw, 22px);
+  line-height: 1.5;
+  max-width: 620px;
+  font-weight: 400;
+}
+
+.hero-meta {
+  margin-top: 40px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+}
+
+.hero-meta-item {
+  border: 3px solid var(--white);
+  padding: 16px 24px;
+  font-size: 14px;
+  line-height: 1.4;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.hero-meta-item:first-child {
+  border-right: none;
+}
+
+.hero-cta {
+  display: inline-block;
+  margin-top: 48px;
+  padding: 20px 48px;
+  background: var(--red);
+  color: var(--white);
+  font-family: 'Unbounded', sans-serif;
+  font-weight: 700;
+  font-size: clamp(14px, 2vw, 18px);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s, background 0.2s;
+}
+
+.hero-cta:hover {
+  transform: scale(1.05);
+  background: var(--white);
+  color: var(--black);
+}
+
+/* ── BENEFITS ── */
+.benefits {
+  border-bottom: 3px solid var(--white);
+}
+
+.benefit {
+  display: grid;
+  grid-template-columns: clamp(80px, 18vw, 200px) 1fr;
+  border-bottom: 3px solid var(--white);
+  transition: background 0.25s, color 0.25s;
+}
+
+.benefit:last-child {
+  border-bottom: none;
+}
+
+.benefit:hover {
+  background: var(--white);
+  color: var(--black);
+}
+
+.benefit:hover .benefit-num {
+  color: var(--red);
+}
+
+.benefit-num {
+  font-family: 'Unbounded', sans-serif;
+  font-weight: 900;
+  font-size: clamp(48px, 10vw, 100px);
+  line-height: 1;
+  padding: 32px 24px;
+  border-right: 3px solid currentColor;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.25s;
+}
+
+.benefit-content {
+  padding: 32px 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.benefit-title {
+  font-family: 'Unbounded', sans-serif;
+  font-weight: 700;
+  font-size: clamp(18px, 3vw, 28px);
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  margin-bottom: 12px;
+}
+
+.benefit-text {
+  font-size: clamp(13px, 1.6vw, 16px);
+  line-height: 1.55;
+  opacity: 0.8;
+}
+
+/* ── SIGNUP SECTION ── */
+.signup {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-bottom: 3px solid var(--white);
+}
+
+.signup-left {
+  padding: 60px 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-right: 3px solid var(--white);
+}
+
+.signup-heading {
+  font-family: 'Unbounded', sans-serif;
+  font-weight: 900;
+  font-size: clamp(28px, 5vw, 52px);
+  text-transform: uppercase;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+.signup-heading em {
+  font-style: normal;
+  color: var(--red);
+}
+
+.signup-note {
+  margin-top: 24px;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  opacity: 0.6;
+}
+
+.signup-right {
+  padding: 60px 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.form-group {
+  margin-bottom: 0;
+}
+
+.form-group + .form-group {
+  margin-top: 0;
+}
+
+.form-input {
+  width: 100%;
+  padding: 18px 20px;
+  background: transparent;
+  border: 3px solid var(--white);
+  border-bottom: none;
+  color: var(--white);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.form-input:last-of-type {
+  border-bottom: 3px solid var(--white);
+}
+
+.form-input::placeholder {
+  color: rgba(255,255,255,0.35);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 13px;
+}
+
+.form-input:focus {
+  border-color: var(--red);
+}
+
+.form-checkbox {
+  margin-top: 20px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  cursor: pointer;
+  font-size: 12px;
+  line-height: 1.5;
+  opacity: 0.6;
+}
+
+.form-checkbox input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  min-width: 20px;
+  border: 3px solid var(--white);
+  background: transparent;
+  cursor: pointer;
+  position: relative;
+  margin-top: 1px;
+}
+
+.form-checkbox input[type="checkbox"]:checked {
+  background: var(--red);
+  border-color: var(--red);
+}
+
+.form-checkbox input[type="checkbox"]:checked::after {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 1px;
+  width: 6px;
+  height: 10px;
+  border: solid var(--white);
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.form-submit {
+  margin-top: 24px;
+  width: 100%;
+  padding: 20px;
+  background: var(--white);
+  color: var(--black);
+  font-family: 'Unbounded', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border: 3px solid var(--white);
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, transform 0.2s;
+}
+
+.form-submit:hover:not(:disabled) {
+  background: var(--red);
+  color: var(--white);
+  border-color: var(--red);
+  transform: scale(1.02);
+}
+
+.form-submit:disabled {
+  opacity: 0.25;
+  cursor: not-allowed;
+}
+
+.success-msg {
+  display: none;
+  font-family: 'Unbounded', sans-serif;
+  font-weight: 700;
+  font-size: clamp(24px, 4vw, 40px);
+  text-transform: uppercase;
+  color: var(--red);
+  text-align: center;
+  padding: 40px 0;
+}
+
+/* ── FOOTER ── */
+.footer {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: none;
+}
+
+.footer-cell {
+  padding: 28px 24px;
+  font-size: 13px;
+  line-height: 1.5;
+  border-right: 3px solid var(--white);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.footer-cell:last-child {
+  border-right: none;
+}
+
+.footer-cell a {
+  transition: color 0.2s;
+}
+
+.footer-cell a:hover {
+  color: var(--red);
+}
+
+.footer-bottom {
+  border-top: 3px solid var(--white);
+  padding: 16px 24px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  opacity: 0.35;
+  text-align: center;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  .signup {
+    grid-template-columns: 1fr;
+  }
+
+  .signup-left {
+    border-right: none;
+    border-bottom: 3px solid var(--white);
+    padding: 40px 24px;
+  }
+
+  .signup-right {
+    padding: 40px 24px;
+  }
+
+  .hero {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-image {
+    grid-column: 1;
+    grid-row: auto;
+    margin: 40px -24px -80px -24px;
+    border-left: none;
+    border-top: 3px solid var(--white);
+    max-height: 300px;
+  }
+
+  .hero-meta {
+    flex-direction: column;
+  }
+
+  .hero-meta-item:first-child {
+    border-right: 3px solid var(--white);
+    border-bottom: none;
+  }
+
+  .benefit {
+    grid-template-columns: 80px 1fr;
+  }
+
+  .footer {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-cell {
+    border-right: none;
+    border-bottom: 3px solid var(--white);
+  }
+
+  .footer-cell:last-child {
+    border-bottom: none;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track" aria-hidden="true">
+    ДЕНЬ СТИЛИСТА&nbsp;&nbsp;/&nbsp;&nbsp;19 АПРЕЛЯ&nbsp;&nbsp;/&nbsp;&nbsp;ДЕНЬ СТИЛИСТА&nbsp;&nbsp;/&nbsp;&nbsp;19 АПРЕЛЯ&nbsp;&nbsp;/&nbsp;&nbsp;ДЕНЬ СТИЛИСТА&nbsp;&nbsp;/&nbsp;&nbsp;19 АПРЕЛЯ&nbsp;&nbsp;/&nbsp;&nbsp;ДЕНЬ СТИЛИСТА&nbsp;&nbsp;/&nbsp;&nbsp;19 АПРЕЛЯ&nbsp;&nbsp;/&nbsp;&nbsp;ДЕНЬ СТИЛИСТА&nbsp;&nbsp;/&nbsp;&nbsp;19 АПРЕЛЯ&nbsp;&nbsp;/&nbsp;&nbsp;ДЕНЬ СТИЛИСТА&nbsp;&nbsp;/&nbsp;&nbsp;19 АПРЕЛЯ&nbsp;&nbsp;/&nbsp;&nbsp;ДЕНЬ СТИЛИСТА&nbsp;&nbsp;/&nbsp;&nbsp;19 АПРЕЛЯ&nbsp;&nbsp;/&nbsp;&nbsp;ДЕНЬ СТИЛИСТА&nbsp;&nbsp;/&nbsp;&nbsp;19 АПРЕЛЯ&nbsp;&nbsp;/&nbsp;&nbsp;
+  </div>
+</div>
+
+<!-- TOP BAR -->
+<header class="top-bar">
+  <div class="logo"><img src="sunction-logo-transparent.png" alt="sunction.store" style="height: 36px; filter: invert(1);"> sunction.store</div>
+  <a href="#signup" class="top-nav">Записаться</a>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <h1 class="hero-title">День<br>стилис<span>та</span></h1>
+  <p class="hero-sub">Поможем подобрать очки с учётом формы лица, цветотипа и личного стиля</p>
+  <div class="hero-meta">
+    <div class="hero-meta-item">19 апреля, 14:00–18:00</div>
+    <div class="hero-meta-item">Москва, ул. Земляной Вал, д.&nbsp;7</div>
+  </div>
+  <a href="#signup" class="hero-cta">Забронировать место</a>
+  <div class="hero-image">
+    <img src="hf_20260409_123836_35dd3346-c719-4092-abab-21650ed8c3de.png" alt="День стилиста — sunction.store">
+  </div>
+</section>
+
+<!-- MARQUEE 2 -->
+<div class="marquee-wrap" style="border-top: none;">
+  <div class="marquee-track" style="animation-direction: reverse;">
+    ДЕНЬ СТИЛИСТА&nbsp;&nbsp;/&nbsp;&nbsp;SUNCTION.STORE&nbsp;&nbsp;/&nbsp;&nbsp;ДЕНЬ СТИЛИСТА&nbsp;&nbsp;/&nbsp;&nbsp;SUNCTION.STORE&nbsp;&nbsp;/&nbsp;&nbsp;ДЕНЬ СТИЛИСТА&nbsp;&nbsp;/&nbsp;&nbsp;SUNCTION.STORE&nbsp;&nbsp;/&nbsp;&nbsp;ДЕНЬ СТИЛИСТА&nbsp;&nbsp;/&nbsp;&nbsp;SUNCTION.STORE&nbsp;&nbsp;/&nbsp;&nbsp;ДЕНЬ СТИЛИСТА&nbsp;&nbsp;/&nbsp;&nbsp;SUNCTION.STORE&nbsp;&nbsp;/&nbsp;&nbsp;ДЕНЬ СТИЛИСТА&nbsp;&nbsp;/&nbsp;&nbsp;SUNCTION.STORE&nbsp;&nbsp;/&nbsp;&nbsp;
+  </div>
+</div>
+
+<!-- BENEFITS -->
+<section class="benefits">
+  <div class="benefit">
+    <div class="benefit-num">01</div>
+    <div class="benefit-content">
+      <div class="benefit-title">Сессия со стилистом</div>
+      <div class="benefit-text">20-минутная индивидуальная консультация по подбору очков</div>
+    </div>
+  </div>
+  <div class="benefit">
+    <div class="benefit-num">02</div>
+    <div class="benefit-content">
+      <div class="benefit-title">Подарок при покупке</div>
+      <div class="benefit-text">Комплиментарный набор для ухода за очками при любой покупке</div>
+    </div>
+  </div>
+  <div class="benefit">
+    <div class="benefit-num">03</div>
+    <div class="benefit-content">
+      <div class="benefit-title">Персональные условия</div>
+      <div class="benefit-text">Специальные условия на покупки для участников события</div>
+    </div>
+  </div>
+</section>
+
+<!-- SIGNUP -->
+<section class="signup" id="signup">
+  <div class="signup-left">
+    <h2 class="signup-heading">Количество мест <em>ограничено</em></h2>
+    <p class="signup-note">Только по предварительной записи</p>
+  </div>
+  <div class="signup-right">
+    <form id="signupForm">
+      <div class="form-group">
+        <input type="text" class="form-input" placeholder="Имя" required>
+      </div>
+      <div class="form-group">
+        <input type="tel" class="form-input" placeholder="Телефон" required>
+      </div>
+      <label class="form-checkbox">
+        <input type="checkbox" id="consent">
+        <span>Даю согласие на обработку персональных данных</span>
+      </label>
+      <button type="submit" class="form-submit" id="submitBtn" disabled>Записаться</button>
+    </form>
+    <div class="success-msg" id="successMsg">Вы записаны!</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer">
+    <div class="footer-cell">
+      <a href="tel:+74992881663">+7 499 288 16 63</a>
+    </div>
+    <div class="footer-cell">
+      Москва, ул. Земляной Вал, д.&nbsp;7
+    </div>
+    <div class="footer-cell">
+      <a href="https://sunction.store" target="_blank">sunction.store</a>
+    </div>
+  </div>
+  <div class="footer-bottom">&copy; 2026 sunction.store</div>
+</footer>
+
+<script>
+  // Checkbox → enable/disable submit
+  const consent = document.getElementById('consent');
+  const submitBtn = document.getElementById('submitBtn');
+  consent.addEventListener('change', () => {
+    submitBtn.disabled = !consent.checked;
+  });
+
+  // Form submit
+  const form = document.getElementById('signupForm');
+  const successMsg = document.getElementById('successMsg');
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    form.style.display = 'none';
+    successMsg.style.display = 'block';
+  });
+</script>
+
+</body>
+</html>

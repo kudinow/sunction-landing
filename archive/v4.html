@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>День стилиста | sunction.store</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poiret+One&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy: #0A0E27;
+            --navy-light: #121836;
+            --gold: #D4AF37;
+            --gold-light: #E8C84A;
+            --gold-dark: #B8962E;
+            --cream: #F5F0E8;
+            --cream-dim: rgba(245, 240, 232, 0.6);
+        }
+
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Raleway', sans-serif;
+            background: var(--navy);
+            color: var(--cream);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* ===== DECORATIVE SIDE LINES ===== */
+        body::before,
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background: linear-gradient(
+                to bottom,
+                transparent 0%,
+                var(--gold) 15%,
+                var(--gold) 85%,
+                transparent 100%
+            );
+            opacity: 0.3;
+            z-index: 100;
+            pointer-events: none;
+        }
+        body::before { left: 20px; }
+        body::after { right: 20px; }
+
+        @media (max-width: 768px) {
+            body::before { left: 8px; }
+            body::after { right: 8px; }
+        }
+
+        /* ===== SHIMMER ANIMATION ===== */
+        @keyframes shimmer {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
+        }
+
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 5px rgba(212, 175, 55, 0.3); }
+            50% { box-shadow: 0 0 20px rgba(212, 175, 55, 0.6), 0 0 40px rgba(212, 175, 55, 0.2); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fanRotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* ===== LOGO IMAGE ===== */
+        .logo-img {
+            display: block;
+            height: 40px;
+            margin: 0 auto 8px;
+            filter: invert(1) sepia(1) saturate(5) hue-rotate(15deg) brightness(0.9);
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 40px 20px;
+        }
+
+        /* Hero background image */
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background-image: url('hf_20260409_123836_35dd3346-c719-4092-abab-21650ed8c3de.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            z-index: 0;
+        }
+
+        .hero-bg::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(10, 14, 39, 0.82);
+        }
+
+        /* Art Deco sunburst background */
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 800px;
+            height: 800px;
+            transform: translate(-50%, -50%);
+            background: repeating-conic-gradient(
+                from 0deg,
+                rgba(212, 175, 55, 0.03) 0deg 5deg,
+                transparent 5deg 10deg
+            );
+            border-radius: 50%;
+            animation: fanRotate 120s linear infinite;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .hero-frame {
+            position: relative;
+            z-index: 1;
+            max-width: 700px;
+            width: 100%;
+            padding: 60px 50px;
+            text-align: center;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        /* Gold geometric frame */
+        .hero-frame::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border: 1px solid var(--gold);
+            opacity: 0.6;
+        }
+
+        /* Corner accents */
+        .corner {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border-color: var(--gold);
+            border-style: solid;
+        }
+        .corner--tl { top: -1px; left: -1px; border-width: 3px 0 0 3px; }
+        .corner--tr { top: -1px; right: -1px; border-width: 3px 3px 0 0; }
+        .corner--bl { bottom: -1px; left: -1px; border-width: 0 0 3px 3px; }
+        .corner--br { bottom: -1px; right: -1px; border-width: 0 3px 3px 0; }
+
+        /* Inner frame */
+        .hero-frame::after {
+            content: '';
+            position: absolute;
+            inset: 10px;
+            border: 1px solid rgba(212, 175, 55, 0.25);
+        }
+
+        .logo {
+            font-family: 'Poiret One', cursive;
+            font-size: 1.1rem;
+            letter-spacing: 0.4em;
+            text-transform: lowercase;
+            color: var(--gold);
+            margin-bottom: 8px;
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        /* Decorative line above/below logo */
+        .deco-line {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin: 12px 0;
+        }
+
+        .deco-line span {
+            display: block;
+            height: 1px;
+            width: 60px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+        }
+
+        .deco-line .diamond {
+            width: 6px;
+            height: 6px;
+            background: var(--gold);
+            transform: rotate(45deg);
+            flex-shrink: 0;
+        }
+
+        .hero-title {
+            font-family: 'Poiret One', cursive;
+            font-size: clamp(2.8rem, 7vw, 4.5rem);
+            letter-spacing: 0.15em;
+            color: var(--cream);
+            margin: 20px 0 10px;
+            line-height: 1.15;
+        }
+
+        /* Art Deco chevron under title */
+        .chevron-deco {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            margin: 16px auto 28px;
+        }
+
+        .chevron-deco i {
+            display: block;
+            width: 20px;
+            height: 20px;
+            border-right: 1px solid var(--gold);
+            border-bottom: 1px solid var(--gold);
+            transform: rotate(45deg) scale(0.6);
+            opacity: 0.7;
+        }
+        .chevron-deco i:nth-child(2) { opacity: 0.9; transform: rotate(45deg) scale(0.8); }
+        .chevron-deco i:nth-child(3) { opacity: 0.7; transform: rotate(45deg) scale(0.6); }
+
+        .hero-subtitle {
+            font-family: 'Raleway', sans-serif;
+            font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+            font-weight: 300;
+            color: var(--cream-dim);
+            line-height: 1.7;
+            max-width: 480px;
+            margin: 0 auto 30px;
+            letter-spacing: 0.03em;
+        }
+
+        .hero-info {
+            font-size: 0.85rem;
+            font-weight: 400;
+            letter-spacing: 0.12em;
+            color: var(--gold);
+            margin-bottom: 8px;
+            line-height: 1.8;
+        }
+
+        .hero-info-addr {
+            font-size: 0.8rem;
+            font-weight: 300;
+            letter-spacing: 0.08em;
+            color: var(--cream-dim);
+            margin-bottom: 40px;
+        }
+
+        /* CTA Button */
+        .btn-gold {
+            display: inline-block;
+            font-family: 'Raleway', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            text-decoration: none;
+            color: var(--navy);
+            background: linear-gradient(135deg, var(--gold), var(--gold-light), var(--gold));
+            background-size: 200% 200%;
+            padding: 16px 48px;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            z-index: 1;
+            transition: all 0.3s ease;
+            animation: glow 3s ease-in-out infinite;
+        }
+
+        .btn-gold:hover {
+            background-position: 100% 100%;
+            transform: translateY(-2px);
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
+        }
+
+        /* ===== ART DECO FAN DIVIDER ===== */
+        .fan-divider {
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            height: 60px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .fan-divider .ray {
+            width: 1px;
+            background: var(--gold);
+            transform-origin: bottom center;
+            opacity: 0.4;
+        }
+
+        .fan-divider .ray:nth-child(1) { height: 40px; transform: rotate(-30deg); }
+        .fan-divider .ray:nth-child(2) { height: 48px; transform: rotate(-20deg); }
+        .fan-divider .ray:nth-child(3) { height: 54px; transform: rotate(-10deg); }
+        .fan-divider .ray:nth-child(4) { height: 58px; transform: rotate(0deg); opacity: 0.6; }
+        .fan-divider .ray:nth-child(5) { height: 54px; transform: rotate(10deg); }
+        .fan-divider .ray:nth-child(6) { height: 48px; transform: rotate(20deg); }
+        .fan-divider .ray:nth-child(7) { height: 40px; transform: rotate(30deg); }
+
+        /* ===== BENEFITS SECTION ===== */
+        .benefits {
+            padding: 80px 20px 100px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-family: 'Poiret One', cursive;
+            font-size: clamp(1.6rem, 4vw, 2.4rem);
+            letter-spacing: 0.15em;
+            text-align: center;
+            color: var(--cream);
+            margin-bottom: 60px;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .benefits-grid {
+                grid-template-columns: 1fr;
+                gap: 50px;
+                max-width: 400px;
+                margin: 0 auto;
+            }
+        }
+
+        .benefit-card {
+            text-align: center;
+            padding: 40px 24px;
+            position: relative;
+            border: 1px solid rgba(212, 175, 55, 0.15);
+            transition: border-color 0.3s ease;
+        }
+
+        .benefit-card:hover {
+            border-color: rgba(212, 175, 55, 0.4);
+        }
+
+        /* Geometric icons */
+        .geo-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 24px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Diamond shape */
+        .geo-icon--diamond::before {
+            content: '';
+            width: 32px;
+            height: 32px;
+            border: 1.5px solid var(--gold);
+            transform: rotate(45deg);
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        /* Hexagon shape */
+        .geo-icon--hexagon {
+            position: relative;
+        }
+
+        .geo-icon--hexagon::before {
+            content: '';
+            width: 36px;
+            height: 20px;
+            border: 1.5px solid var(--gold);
+            position: absolute;
+        }
+
+        .geo-icon--hexagon::after {
+            content: '';
+            width: 36px;
+            height: 20px;
+            border: 1.5px solid var(--gold);
+            transform: rotate(60deg);
+            position: absolute;
+        }
+
+        .hex-extra::before {
+            content: '';
+            width: 36px;
+            height: 20px;
+            border: 1.5px solid var(--gold);
+            transform: rotate(-60deg);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-top: -10px;
+            margin-left: -18px;
+        }
+
+        /* Triangle shape */
+        .geo-icon--triangle::before {
+            content: '';
+            width: 0;
+            height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-bottom: 34px solid transparent;
+            position: absolute;
+        }
+
+        .geo-icon--triangle::after {
+            content: '';
+            width: 0;
+            height: 0;
+            border-left: 18px solid transparent;
+            border-right: 18px solid transparent;
+            border-bottom: 31px solid var(--navy);
+            position: absolute;
+            top: 16px;
+        }
+
+        .geo-icon--triangle {
+            position: relative;
+        }
+
+        .geo-icon--triangle .tri-border {
+            width: 0;
+            height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-bottom: 35px solid var(--gold);
+            position: relative;
+        }
+
+        .geo-icon--triangle .tri-border::after {
+            content: '';
+            width: 0;
+            height: 0;
+            border-left: 17px solid transparent;
+            border-right: 17px solid transparent;
+            border-bottom: 30px solid var(--navy);
+            position: absolute;
+            top: 3px;
+            left: -17px;
+        }
+
+        .benefit-title {
+            font-family: 'Poiret One', cursive;
+            font-size: 1.2rem;
+            letter-spacing: 0.08em;
+            color: var(--gold);
+            margin-bottom: 14px;
+        }
+
+        .benefit-text {
+            font-size: 0.9rem;
+            font-weight: 300;
+            line-height: 1.7;
+            color: var(--cream-dim);
+        }
+
+        /* Gold divider between benefits on mobile */
+        .benefit-divider {
+            display: none;
+        }
+
+        /* ===== FORM SECTION ===== */
+        .signup {
+            padding: 80px 20px 100px;
+            background: linear-gradient(180deg, var(--navy) 0%, var(--navy-light) 50%, var(--navy) 100%);
+            position: relative;
+        }
+
+        .signup-inner {
+            max-width: 520px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .signup-title {
+            font-family: 'Poiret One', cursive;
+            font-size: clamp(1.5rem, 4vw, 2.2rem);
+            letter-spacing: 0.12em;
+            color: var(--cream);
+            margin-bottom: 12px;
+        }
+
+        .signup-sub {
+            font-size: 0.9rem;
+            font-weight: 300;
+            color: var(--cream-dim);
+            letter-spacing: 0.08em;
+            margin-bottom: 50px;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 400;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 8px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 14px 18px;
+            font-family: 'Raleway', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 300;
+            color: var(--cream);
+            background: transparent;
+            border: 1px solid rgba(212, 175, 55, 0.35);
+            outline: none;
+            letter-spacing: 0.04em;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .form-input::placeholder {
+            color: rgba(245, 240, 232, 0.25);
+        }
+
+        .form-input:focus {
+            border-color: var(--gold);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.15);
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin: 28px 0 32px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            min-width: 18px;
+            border: 1px solid rgba(212, 175, 55, 0.5);
+            background: transparent;
+            cursor: pointer;
+            position: relative;
+            margin-top: 2px;
+            transition: all 0.2s ease;
+        }
+
+        .checkbox-group input[type="checkbox"]:checked {
+            background: var(--gold);
+            border-color: var(--gold);
+        }
+
+        .checkbox-group input[type="checkbox"]:checked::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 5px;
+            width: 5px;
+            height: 9px;
+            border: solid var(--navy);
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+
+        .checkbox-group label {
+            font-size: 0.8rem;
+            font-weight: 300;
+            color: var(--cream-dim);
+            line-height: 1.5;
+            cursor: pointer;
+        }
+
+        .checkbox-group label a {
+            color: var(--gold);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+            transition: border-color 0.2s;
+        }
+
+        .checkbox-group label a:hover {
+            border-color: var(--gold);
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 16px;
+            font-family: 'Raleway', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--navy);
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.4);
+        }
+
+        .btn-submit:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* Success state */
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: 40px 20px;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        .success-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 24px;
+            border: 2px solid var(--gold);
+            transform: rotate(45deg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .success-icon::after {
+            content: '';
+            width: 12px;
+            height: 20px;
+            border: solid var(--gold);
+            border-width: 0 2px 2px 0;
+            transform: rotate(0deg);
+        }
+
+        .success-title {
+            font-family: 'Poiret One', cursive;
+            font-size: 1.6rem;
+            letter-spacing: 0.1em;
+            color: var(--gold);
+            margin-bottom: 12px;
+        }
+
+        .success-text {
+            font-size: 0.9rem;
+            font-weight: 300;
+            color: var(--cream-dim);
+            line-height: 1.6;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            padding: 50px 20px 40px;
+            text-align: center;
+        }
+
+        .footer-deco {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 30px;
+        }
+
+        .footer-deco span {
+            display: block;
+            height: 1px;
+            width: 80px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+        }
+
+        .footer-deco .diamond {
+            width: 8px;
+            height: 8px;
+            border: 1px solid var(--gold);
+            transform: rotate(45deg);
+            flex-shrink: 0;
+        }
+
+        .footer-info {
+            font-size: 0.8rem;
+            font-weight: 300;
+            color: var(--cream-dim);
+            line-height: 2;
+            letter-spacing: 0.05em;
+        }
+
+        .footer-info a {
+            color: var(--gold);
+            text-decoration: none;
+            transition: opacity 0.2s;
+        }
+
+        .footer-info a:hover {
+            opacity: 0.8;
+        }
+
+        .footer-brand {
+            font-family: 'Poiret One', cursive;
+            font-size: 0.9rem;
+            letter-spacing: 0.3em;
+            color: var(--gold);
+            margin-top: 20px;
+            animation: shimmer 4s ease-in-out infinite;
+        }
+
+        /* ===== ART DECO DECORATIVE ELEMENTS ===== */
+
+        /* Stepped pyramid divider */
+        .stepped-divider {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px 0;
+        }
+
+        .stepped-divider .step {
+            height: 1px;
+            background: var(--gold);
+            opacity: 0.4;
+        }
+
+        .stepped-divider .step:nth-child(1) { width: 200px; margin-bottom: 6px; }
+        .stepped-divider .step:nth-child(2) { width: 140px; margin-bottom: 6px; }
+        .stepped-divider .step:nth-child(3) { width: 80px; }
+    </style>
+</head>
+<body>
+
+    <!-- ===== HERO ===== -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-frame">
+            <div class="corner corner--tl"></div>
+            <div class="corner corner--tr"></div>
+            <div class="corner corner--bl"></div>
+            <div class="corner corner--br"></div>
+
+            <div class="deco-line">
+                <span></span>
+                <div class="diamond"></div>
+                <span></span>
+            </div>
+
+            <img src="sunction-logo-transparent.png" alt="sunction.store" class="logo-img">
+            <div class="logo">sunction.store</div>
+
+            <div class="deco-line">
+                <span></span>
+                <div class="diamond"></div>
+                <span></span>
+            </div>
+
+            <h1 class="hero-title">День стилиста</h1>
+
+            <div class="chevron-deco">
+                <i></i><i></i><i></i>
+            </div>
+
+            <p class="hero-subtitle">Поможем подобрать очки с учётом формы лица, цветотипа и личного стиля</p>
+
+            <p class="hero-info">19 апреля, 14:00–18:00</p>
+            <p class="hero-info-addr">Москва, ул. Земляной Вал, д. 7</p>
+
+            <a href="#signup" class="btn-gold">Забронировать место</a>
+        </div>
+    </section>
+
+    <!-- ===== FAN DIVIDER ===== -->
+    <div class="fan-divider">
+        <div class="ray"></div>
+        <div class="ray"></div>
+        <div class="ray"></div>
+        <div class="ray"></div>
+        <div class="ray"></div>
+        <div class="ray"></div>
+        <div class="ray"></div>
+    </div>
+
+    <!-- ===== BENEFITS ===== -->
+    <section class="benefits">
+        <h2 class="section-title">Что вас ждёт</h2>
+
+        <div class="benefits-grid">
+            <div class="benefit-card">
+                <div class="geo-icon geo-icon--diamond"></div>
+                <h3 class="benefit-title">Сессия со стилистом</h3>
+                <p class="benefit-text">20-минутная индивидуальная консультация по подбору очков</p>
+            </div>
+
+            <div class="benefit-card">
+                <div class="geo-icon geo-icon--hexagon">
+                    <div class="hex-extra"></div>
+                </div>
+                <h3 class="benefit-title">Подарок при покупке</h3>
+                <p class="benefit-text">Комплиментарный набор для ухода за очками при любой покупке</p>
+            </div>
+
+            <div class="benefit-card">
+                <div class="geo-icon geo-icon--triangle">
+                    <div class="tri-border"></div>
+                </div>
+                <h3 class="benefit-title">Персональные условия</h3>
+                <p class="benefit-text">Специальные условия на покупки для участников события</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== STEPPED DIVIDER ===== -->
+    <div class="stepped-divider">
+        <div class="step"></div>
+        <div class="step"></div>
+        <div class="step"></div>
+    </div>
+
+    <!-- ===== SIGNUP SECTION ===== -->
+    <section class="signup" id="signup">
+        <div class="signup-inner">
+            <h2 class="signup-title">Количество мест ограничено</h2>
+            <p class="signup-sub">Только по предварительной записи</p>
+
+            <form id="signupForm">
+                <div class="form-group">
+                    <label for="name">Имя</label>
+                    <input type="text" id="name" name="name" class="form-input" placeholder="Ваше имя" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Телефон</label>
+                    <input type="tel" id="phone" name="phone" class="form-input" placeholder="+7 (___) ___-__-__" required>
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="consent" required>
+                    <label for="consent">Я согласен(а) на обработку персональных данных в соответствии с <a href="#">политикой конфиденциальности</a></label>
+                </div>
+
+                <button type="submit" class="btn-submit">Записаться</button>
+            </form>
+
+            <div class="success-message" id="successMessage">
+                <div class="success-icon"></div>
+                <h3 class="success-title">Вы записаны!</h3>
+                <p class="success-text">Мы свяжемся с вами для подтверждения записи.<br>Ждём вас 19 апреля!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="footer-deco">
+            <span></span>
+            <div class="diamond"></div>
+            <span></span>
+        </div>
+
+        <div class="footer-info">
+            <a href="tel:+74992881663">+7 499 288 16 63</a><br>
+            Москва, ул. Земляной Вал, д. 7<br>
+            <a href="https://sunction.store" target="_blank">sunction.store</a>
+        </div>
+
+        <div class="footer-brand">sunction.store</div>
+    </footer>
+
+    <script>
+        // Phone mask
+        const phoneInput = document.getElementById('phone');
+        phoneInput.addEventListener('input', function(e) {
+            let val = e.target.value.replace(/\D/g, '');
+            if (val.startsWith('8')) val = '7' + val.slice(1);
+            if (!val.startsWith('7') && val.length > 0) val = '7' + val;
+
+            let formatted = '';
+            if (val.length > 0) formatted = '+7';
+            if (val.length > 1) formatted += ' (' + val.slice(1, 4);
+            if (val.length > 4) formatted += ') ' + val.slice(4, 7);
+            if (val.length > 7) formatted += '-' + val.slice(7, 9);
+            if (val.length > 9) formatted += '-' + val.slice(9, 11);
+
+            e.target.value = formatted;
+        });
+
+        // Form submission
+        document.getElementById('signupForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const form = this;
+            const submitBtn = form.querySelector('.btn-submit');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Отправка...';
+
+            // Simulate submission
+            setTimeout(function() {
+                form.style.display = 'none';
+                document.getElementById('successMessage').classList.add('show');
+            }, 800);
+        });
+
+        // Intersection Observer for fade-in
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeInUp 0.8s ease-out forwards';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15 });
+
+        document.querySelectorAll('.benefit-card, .signup-inner').forEach(function(el) {
+            el.style.opacity = '0';
+            observer.observe(el);
+        });
+    </script>
+
+</body>
+</html>
